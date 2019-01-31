@@ -45,6 +45,7 @@ DROP DATABASE IF EXISTS music2;
 #### 语法
 [文档连接](http://www.postgres.cn/docs/10/sql-createtable.html)
 #### 例子
+[文档连接](http://www.postgres.cn/docs/10/ddl.html)
 ##### 1、默认值
 在一个表定义中，默认值被列在列的数据类型之后。例如：
 
@@ -213,6 +214,8 @@ CREATE TABLE order_items (
 
 与ON DELETE相似，同样有ON UPDATE可以用在一个被引用列被修改（更新）的情况，可选的动作相同。在这种情况下，CASCADE意味着被引用列的更新值应该被复制到引用行中。
 
+正常情况下，如果一个引用行的任意一个引用列都为空，则它不需要满足外键约束。如果在外键定义中加入了MATCH FULL，一个引用行只有在它的所有引用列为空时才不需要满足外键约束（因此空和非空值的混合肯定会导致MATCH FULL约束失败）。如果不希望引用行能够避开外键约束，将引用行声明为NOT NULL。
+
 一个外键所引用的列必须是一个主键或者被唯一约束所限制。这意味着被引用列总是拥有一个索引（位于主键或唯一约束之下的索引），因此在其上进行的一个引用行是否匹配的检查将会很高效。由于从被引用表中DELETE一行或者UPDATE一个被引用列将要求对引用表进行扫描以得到匹配旧值的行，在引用列上建立合适的索引也会大有益处。由于这种做法并不是必须的，而且创建索引也有很多种选择，所以外键约束的定义并不会自动在引用列上创建索引。
 ### 2.2、修改表
 #### 语法
@@ -244,8 +247,15 @@ ALTER TABLE distributors
 DROP TABLE IF EXISTS films, distributors;
 ```
 ## 3、数据类型
+[文档连接](http://www.postgres.cn/docs/10/datatype.html)
+### 1、数字类型
+![](https://puroc521blog.oss-cn-beijing.aliyuncs.com/20190131104815.png)
+### 2、字符类型
+![](https://puroc521blog.oss-cn-beijing.aliyuncs.com/20190131105254.png)
+### 3、日期时间类型
+![](https://puroc521blog.oss-cn-beijing.aliyuncs.com/20190131105903.png)
+### 4、JSON类型
+### 5、数组类型
 
-## 4、索引管理
-### 4.1、创建索引
-### 4.2、删除索引
+
 
